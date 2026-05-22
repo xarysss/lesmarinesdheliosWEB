@@ -1,0 +1,325 @@
+/* ════════════════════════════════════════════
+   GALLERY — Carousel & Lightbox
+   Les Marines d'Hélios
+   ════════════════════════════════════════════ */
+
+/* ── Override house-detail__media for carousel ── */
+.house-detail__media {
+  overflow: hidden;
+}
+
+/* ── House Carousel ──────────────────────────── */
+.house-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.house-carousel__track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.house-carousel__slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.house-carousel__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.house-carousel__slide img:hover {
+  transform: scale(1.03);
+}
+
+/* ── Arrow buttons ───────────────────────────── */
+.house-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(251, 246, 238, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 16px -4px rgba(21, 38, 61, 0.25);
+}
+.house-carousel__arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.house-detail__media:hover .house-carousel__arrow,
+.house-card__media:hover .house-carousel__arrow {
+  opacity: 1;
+}
+.house-carousel__arrow:hover {
+  background: var(--cream);
+  transform: translateY(-50%) scale(1.08);
+}
+.house-carousel__arrow--prev { left: 14px; }
+.house-carousel__arrow--next { right: 14px; }
+
+/* ── Dot indicators ──────────────────────────── */
+.house-carousel__dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(21, 38, 61, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.house-carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(251, 246, 238, 0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.house-carousel__dot.is-active {
+  background: var(--cream);
+  transform: scale(1.25);
+}
+.house-carousel__dot:hover:not(.is-active) {
+  background: rgba(251, 246, 238, 0.7);
+}
+
+/* ── Photo counter badge ─────────────────────── */
+.house-carousel__counter {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  background: rgba(21, 38, 61, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 6px 12px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+.house-carousel__counter svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+}
+
+/* ── Lightbox ────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(21, 38, 61, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Close button */
+.lightbox__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 246, 238, 0.2);
+  background: rgba(251, 246, 238, 0.08);
+  color: var(--cream);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  z-index: 10;
+}
+.lightbox__close:hover {
+  background: rgba(251, 246, 238, 0.18);
+  border-color: rgba(251, 246, 238, 0.4);
+}
+.lightbox__close svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* Image container */
+.lightbox__img-wrap {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox__img-wrap img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
+  transform: scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox.is-open .lightbox__img-wrap img {
+  transform: scale(1);
+}
+
+/* Lightbox arrows */
+.lightbox__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 246, 238, 0.2);
+  background: rgba(251, 246, 238, 0.08);
+  color: var(--cream);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+.lightbox__arrow:hover {
+  background: rgba(251, 246, 238, 0.18);
+  border-color: rgba(251, 246, 238, 0.4);
+  transform: translateY(-50%) scale(1.06);
+}
+.lightbox__arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lightbox__arrow--prev { left: 24px; }
+.lightbox__arrow--next { right: 24px; }
+
+/* Counter */
+.lightbox__counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(251, 246, 238, 0.7);
+  z-index: 10;
+}
+
+/* ── Mobile ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .house-carousel__arrow {
+    opacity: 1;
+    width: 38px;
+    height: 38px;
+  }
+  .house-carousel__arrow--prev { left: 10px; }
+  .house-carousel__arrow--next { right: 10px; }
+
+  .lightbox__arrow {
+    width: 42px;
+    height: 42px;
+  }
+  .lightbox__arrow--prev { left: 12px; }
+  .lightbox__arrow--next { right: 12px; }
+
+  .lightbox__close {
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 540px) {
+  .house-carousel__dots {
+    padding: 4px 10px;
+    gap: 6px;
+  }
+  .house-carousel__dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* ── Card carousel overrides (index.html) ────── */
+.house-card__media .house-carousel__arrow {
+  width: 36px;
+  height: 36px;
+}
+.house-card__media .house-carousel__arrow--prev { left: 10px; }
+.house-card__media .house-carousel__arrow--next { right: 10px; }
+.house-card__media .house-carousel__arrow svg {
+  width: 14px;
+  height: 14px;
+}
+.house-card__media .house-carousel__counter {
+  display: none;
+}
+.house-card__media .house-carousel__dots {
+  bottom: 10px;
+  padding: 4px 10px;
+  gap: 6px;
+}
+.house-card__media .house-carousel__dot {
+  width: 6px;
+  height: 6px;
+}
+.house-card__media .house-carousel__slide img:hover {
+  transform: none;
+}
+

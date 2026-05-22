@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_design_source/
+
+Sitemap: https://www.lesmarinesdhelios.fr/sitemap.xml

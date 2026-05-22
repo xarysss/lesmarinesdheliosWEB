@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation - Les Marines d'Hélios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html"><img src="https://lesmarinesdhelios.fr/wp-content/uploads/2023/11/cropped-Sans-titre-3-scaled-1.jpg" alt="Les Marines d'Hélios"></a>
+  </header>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">accueil</a></li>
+      <li><a href="les-maisons.html">les maisons</a></li>
+      <li><a href="la-residence.html">la résidence</a></li>
+      <li><a href="tarifs.html">tarifs</a></li>
+      <li><a href="reservation.html" class="active">réservation</a></li>
+      <li><a href="marseillan-plage.html">marseillan-plage</a></li>
+      <li><a href="venir.html">venir</a></li>
+    </ul>
+  </nav>
+
+  <main class="site-content">
+
+    <h2 class="page-title">contact et réservation</h2>
+
+    <div class="entry-content" style="text-align:center; margin-bottom: 40px;">
+      <p>Pour réserver votre séjour ou pour toute demande de renseignement, nous vous invitons à remplir le formulaire ci-dessous.</p>
+      <p>Dans votre message, pensez à indiquer : les dates souhaitées, le nombre de personnes (adultes et enfants), le type de logement…</p>
+      <p>Vous pouvez aussi nous contacter directement par Email ou par téléphone (coordonnées en pied de page).</p>
+    </div>
+
+    <form class="contact-form" action="mailto:lesmarinesdhelios-contact@yahoo.com" method="post" enctype="text/plain">
+      <label for="nom">Nom *</label>
+      <input type="text" id="nom" name="nom" required placeholder="Votre nom">
+
+      <label for="prenom">Prénom *</label>
+      <input type="text" id="prenom" name="prenom" required placeholder="Votre prénom">
+
+      <label for="tel">Téléphone</label>
+      <input type="tel" id="tel" name="tel" placeholder="Votre téléphone">
+
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required placeholder="Votre email">
+
+      <label for="objet">Objet *</label>
+      <input type="text" id="objet" name="objet" required placeholder="Objet de votre message">
+
+      <label for="message">Votre message *</label>
+      <textarea id="message" name="message" required placeholder="Décrivez votre demande (dates, nombre de personnes, type de logement…)"></textarea>
+
+      <div style="text-align:center;">
+        <button type="submit" class="send-btn">Envoyer</button>
+      </div>
+    </form>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Tél.&nbsp;&nbsp; 06 52 26 45 31</p>
+    <p class="footer-center">Email : <a href="mailto:lesmarinesdhelios-contact@yahoo.com">lesmarinesdhelios-contact@yahoo.com</a></p>
+    <p class="footer-right">Les Marines d'Hélios 7 Rue Georges Brassens 34340 Marseillan-Plage</p>
+  </footer>
+
+</body>
+</html>
