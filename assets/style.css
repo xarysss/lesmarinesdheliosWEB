@@ -527,12 +527,28 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .nav-inner { padding: 0 20px; }
   .main-nav { display: none; }
+  @keyframes mobileNavEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .main-nav.is-open {
     display: block;
-    position: fixed;
-    top: var(--nav-h); left: 0; right: 0; bottom: 0;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    height: calc(100vh - var(--nav-h));
     background: var(--cream);
-    padding: 40px 32px;
+    padding: 48px 32px;
+    border-top: 1px solid var(--line-soft);
+    box-shadow: 0 24px 48px rgba(21, 38, 61, 0.15);
+    overflow-y: auto;
+    animation: mobileNavEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .main-nav.is-open ul { flex-direction: column; gap: 22px; }
   .main-nav.is-open a { font-size: 22px; font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
