@@ -225,6 +225,7 @@ a { color: inherit; }
 .section { padding: 110px 0; }
 .section--sm { padding: 70px 0; }
 .section--lg { padding: 140px 0; }
+.section--lg.section--ink { padding: 80px 0; }
 .section--cream { background: var(--cream); }
 .section--sand { background: var(--sand); }
 .section--bone { background: var(--bone); }
@@ -563,6 +564,7 @@ a { color: inherit; }
 
   .section { padding: 70px 0; }
   .section--lg { padding: 90px 0; }
+  .section--lg.section--ink { padding: 56px 0; }
 
   .site-footer .container { grid-template-columns: 1fr; gap: 40px; }
   .site-footer .container + .container { display: block; }
