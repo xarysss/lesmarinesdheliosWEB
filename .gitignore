@@ -1,0 +1,13 @@
+# Local tooling and design sources
+*.py
+_design_source/
+.claude/
+
+# Original image sources kept locally; deployed pages use WebP.
+assets/img/*.png
+image/**/*.jpg
+image/**/*.jpeg
+image/**/*.JPG
+image/**/*.JPEG
+image/**/*.png
+!image/flavicon.png
