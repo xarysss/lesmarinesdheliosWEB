@@ -1,0 +1,86 @@
+# ─────────────────────────────────────────────────────────────
+#  Les Marines d'Hélios — Apache config (OVH mutualisé)
+#  Sécurité, performance, redirections
+# ─────────────────────────────────────────────────────────────
+
+# Forcer HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Forcer le www (ou retirer si tu veux le contraire)
+RewriteCond %{HTTP_HOST} ^lesmarinesdhelios\.fr$ [NC]
+RewriteRule ^(.*)$ https://www.lesmarinesdhelios.fr/$1 [L,R=301]
+
+# ── En-têtes de sécurité ────────────────────────────────────
+<IfModule mod_headers.c>
+  # HSTS — force HTTPS pour 1 an (active uniquement quand HTTPS est confirmé OK)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Empêche le clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Empêche le MIME-sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Politique referrer
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions API (désactive ce qu'on n'utilise pas)
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
+  # CSP — Content-Security-Policy
+  # Autorise self + Google Fonts + EmailJS + Google Maps iframe
+  Header always set Content-Security-Policy "default-src 'self'; \
+    script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; \
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; \
+    font-src 'self' https://fonts.gstatic.com; \
+    img-src 'self' data: https:; \
+    connect-src 'self' https://api.emailjs.com; \
+    frame-src https://www.google.com https://maps.google.com; \
+    object-src 'none'; \
+    base-uri 'self'; \
+    form-action 'self'; \
+    upgrade-insecure-requests"
+
+  # Cache long pour assets versionnés
+  <FilesMatch "\.(webp|jpg|jpeg|png|gif|svg|woff2?|ttf|otf|eot|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ── Bloquer l'accès aux fichiers sensibles ──────────────────
+<FilesMatch "^\.(git|env|htaccess|htpasswd|DS_Store)">
+  Require all denied
+</FilesMatch>
+<FilesMatch "\.(py|sh|bak|backup|log|md|sql)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
+RedirectMatch 404 /_design_source
+
+# ── Compression Gzip / Brotli ───────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# ── MIME corrects ───────────────────────────────────────────
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
+
+# ── Désactiver listing de dossiers ──────────────────────────
+Options -Indexes
+
+# Page d'erreur 404 → page d'accueil
+ErrorDocument 404 /index.html

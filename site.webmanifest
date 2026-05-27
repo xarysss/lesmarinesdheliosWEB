@@ -1,0 +1,14 @@
+{
+  "name": "Les Marines d'Hélios",
+  "short_name": "Marines d'Hélios",
+  "description": "Locations de vacances familiales à Marseillan-Plage, à 200 m de la plage du Lido de Thau.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "lang": "fr",
+  "background_color": "#FBF6EE",
+  "theme_color": "#FBF6EE",
+  "icons": [
+    { "src": "image/flavicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
